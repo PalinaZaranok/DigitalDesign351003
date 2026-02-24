@@ -20,30 +20,52 @@ entity tsk3_top is
 end tsk3_top;
 
 architecture structure of tsk3_top is
-    alias A : std_logic is sw_in(3);
-    alias B : std_logic is sw_in(2);
-    alias C : std_logic is sw_in(1);
-    alias D : std_logic is sw_in(0);
+    signal A : std_logic;
+    signal B : std_logic;
+    signal C : std_logic;
+    signal D : std_logic;
     
+    signal nCr : std_logic;
+    signal nDr : std_logic;
     signal nC : std_logic;
     signal nD : std_logic;
     
+    signal nAnBr : std_logic;
+    signal nAnBCr : std_logic;
+    signal nAnBnCr : std_logic;
     signal nAnB : std_logic;
     signal nAnBC : std_logic;
     signal nAnBnC : std_logic;
-    signal CD : std_logic;
+    
+    signal led_out_r : std_logic_vector(3 to 0);
 begin
     led_out(15 downto 4) <= "000000000000";
     
-    U1 : DEL_INV port map (I => C, O => nC);
-    U2 : DEL_INV port map (I => D, O => nD);
+    W1 : DEL_WIRE port map (I => sw_in(3), O => A);
+    W2 : DEL_WIRE port map (I => sw_in(2), O => B);
+    W3 : DEL_WIRE port map (I => sw_in(1), O => C);
+    W4 : DEL_WIRE port map (I => sw_in(0), O => D);
     
-    U3 : DEL_NOR2 port map (I0 => A, I1 => B, O => nAnB);
-    U4 : DEL_AND2 port map (I0 => nAnB, I1 => C, O => nAnBC);
-    U5 : DEL_AND2 port map (I0 => nAnB, I1 => nC, O => nAnBnC);
+    U1 : DEL_INV port map (I => C, O => nCr);
+    U2 : DEL_INV port map (I => D, O => nDr);
     
-    U6 : DEL_AND2 port map (I0 => nAnBC, I1 => D, O => led_out(3));
-    U7 : DEL_AND2 port map (I0 => nAnBC, I1 => nD, O => led_out(2));
-    U8 : DEL_AND2 port map (I0 => nAnBnC, I1 => D, O => led_out(1));
-    U9 : DEL_AND2 port map (I0 => nAnBnC, I1 => nD, O => led_out(0));
+    W5 : DEL_WIRE port map (I => nCr, O => nC);
+    W6 : DEL_WIRE port map (I => nDr, O => nD);
+    
+    U3 : DEL_NOR2 port map (I0 => A, I1 => B, O => nAnBr);
+    U4 : DEL_AND2 port map (I0 => nAnB, I1 => C, O => nAnBCr);
+    U5 : DEL_AND2 port map (I0 => nAnB, I1 => nC, O => nAnBnCr);
+    
+    W7 : DEL_WIRE port map (I => nAnBr, O => nAnB);
+    W8 : DEL_WIRE port map (I => nAnBCr, O => nAnBC);
+    W9 : DEL_WIRE port map (I => nAnBnCr, O => nAnBnC);
+    
+    U6 : DEL_AND2 port map (I0 => nAnBC, I1 => D, O => led_out_r(3));
+    U7 : DEL_AND2 port map (I0 => nAnBC, I1 => nD, O => led_out_r(2));
+    U8 : DEL_AND2 port map (I0 => nAnBnC, I1 => D, O => led_out_r(1));
+    U9 : DEL_AND2 port map (I0 => nAnBnC, I1 => nD, O => led_out_r(0));
+    
+    W10 : for I in 0 to 3 generate
+        W11 : DEL_WIRE port map (I => led_out_r(I), O => led_out(I));
+    end generate;
 end structure;
