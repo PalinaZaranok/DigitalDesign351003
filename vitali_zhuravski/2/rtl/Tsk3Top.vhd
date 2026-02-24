@@ -37,7 +37,7 @@ architecture structure of tsk3_top is
     signal nAnBC : std_logic;
     signal nAnBnC : std_logic;
     
-    signal led_out_r : std_logic_vector(3 to 0);
+    signal led_out_r : std_logic_vector(3 downto 0);
 begin
     led_out(15 downto 4) <= "000000000000";
     
