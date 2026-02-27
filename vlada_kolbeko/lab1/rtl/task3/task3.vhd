@@ -5,8 +5,8 @@ use ieee.std_logic_1164.all;
 -- I = 6F (16) = 0110_1111 (2)
 -- J = 8C (16) = 1000_1100 (2)
 
--- J = X xor I
--- X = 1110_0011 - sw_i[7:0] value
+-- X = I xor J
+-- X = 1110_0011 (2) = E3 (16) - sw_i[7:0] value
 
 entity comb_led_unit is
     port (

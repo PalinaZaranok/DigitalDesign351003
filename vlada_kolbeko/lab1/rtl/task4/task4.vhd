@@ -3,9 +3,9 @@ use ieee.std_logic_1164.all;
 
 -- Task 4
 -- F - function of 4 variables
--- F = 2FBC (16)
--- Minimized F = ((not X1) and X2) or (X2 and (not X3)) or (X1 and (not X3) and (not X4)) 
---               or ((not X2) and X3 and (not X4)) or (X1 and (not X2) and X3)
+-- F = 2FBC (16) = 
+-- Minimized F = (X2 and (not X3)) or ((not X1) and X2) or ((not X1) and X3 and (not X4)) 
+--               or (X1 and (not X2) and X3) or (X1 and (not X3) and (not X4))
 -- X1-4 correspond to sw_i[3:0]
 -- F correspond to led_o[0]
 
@@ -29,31 +29,25 @@ architecture structural of comb_unit is
     
     component AND2
         port (
-            X1  : in    std_logic;
-            X2  : in    std_logic;
-            Y   : out   std_logic
+            X1, X2  : in    std_logic;
+            Y       : out   std_logic
         );
     end component;
     
     component AND3
         port (
-            X1  : in    std_logic;
-            X2  : in    std_logic;
-            X3  : in    std_logic;
-            Y   : out   std_logic
+            X1, X2, X3  : in    std_logic;
+            Y           : out   std_logic
         );
     end component;
     
     component OR5
         port (
-            X1  : in    std_logic;
-            X2  : in    std_logic;
-            X3  : in    std_logic;
-            X4  : in    std_logic;
-            X5  : in    std_logic;
-            Y   : out   std_logic
+            X1, X2, X3, X4, X5  : in    std_logic;
+            Y                   : out   std_logic
         );
     end component;
+    
 begin
     INV0    : INV   port map (
         X => sw_i(0), 
@@ -73,31 +67,31 @@ begin
     );
     
     AND2_0  : AND2  port map (
-        X1 => nX1, 
-        X2 => sw_i(1), 
+        X1 => sw_i(1), 
+        X2 => nX3, 
         Y => mt1
     );
     AND2_1  : AND2  port map (
-        X1 => sw_i(1), 
-        X2 => nX3, 
+        X1 => nX1, 
+        X2 => sw_i(1), 
         Y => mt2
     );
     AND3_0  : AND3  port map (
-        X1 => sw_i(0),
-        X2 => nX3, 
+        X1 => nX1,
+        X2 => sw_i(2), 
         X3 => nX4, 
         Y => mt3
     );
     AND3_1  : AND3  port map (
-        X1 => nX2, 
-        X2 => sw_i(2), 
-        X3 => nX4, 
+        X1 => sw_i(0), 
+        X2 => nX2, 
+        X3 => sw_i(2), 
         Y => mt4
     );
     AND3_2  : AND3  port map (
         X1 => sw_i(0), 
-        X2 => nX2, 
-        X3 => sw_i(2), 
+        X2 => nX3, 
+        X3 => nX4, 
         Y => mt5
     );
     

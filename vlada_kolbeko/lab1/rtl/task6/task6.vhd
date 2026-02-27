@@ -14,10 +14,8 @@ end code_conv;
 
 architecture behavioral of code_conv is
 begin
-    process (sw_i)
+    process (sw_i(3 downto 0))
     begin
-        led_o(15 downto 4) <= (others => '0');
-    
         case sw_i(3 downto 0) is
             when "0010" =>
                 led_o(3 downto 0) <= "0000";
@@ -28,7 +26,9 @@ begin
             when "1100" =>
                 led_o(3 downto 0) <= "0100";
             when others =>
-                led_o(3 downto 0) <= "0000";
+                led_o(3 downto 0) <= "0000"; -- instead of XXXX
         end case;
     end process;
+    
+    led_o(15 downto 4) <= (others => '0');
 end behavioral;
