@@ -3,9 +3,8 @@ use ieee.std_logic_1164.all;
 
 entity AND2 is
     port (
-        X1  : in    std_logic;
-        X2  : in    std_logic;
-        Y   : out   std_logic
+        X1, X2  : in    std_logic;
+        Y       : out   std_logic
     );
 end AND2;
 
