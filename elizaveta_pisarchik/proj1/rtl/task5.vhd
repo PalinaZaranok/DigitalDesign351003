@@ -23,7 +23,7 @@ begin
     sD <= sw_i(3);
 
     rA <= not (x or y);
-    rB <= x or y; --точно????
+    rB <= x or y;
     rC <= x(2 downto 0) & "000";
     rD <= x and y;
 

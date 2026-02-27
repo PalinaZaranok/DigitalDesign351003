@@ -3,8 +3,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity task4 is
     port (
-        sw_i  : in  std_logic_vector(15 downto 0);
-        led_o : out std_logic_vector(15 downto 0)
+        sw_i  : in  std_logic_vector(3 downto 0);
+        led_o : out std_logic_vector(0 downto 0)
     );
 end task4;
 
