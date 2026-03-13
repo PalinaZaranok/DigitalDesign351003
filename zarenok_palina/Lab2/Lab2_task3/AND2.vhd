@@ -11,5 +11,5 @@ End AND2;
 
 Architecture Behavior of AND2 is
 Begin
-    F <= A and B after delay;
+    F <= transport A and B after delay;
 End Behavior;    

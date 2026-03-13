@@ -11,5 +11,5 @@ End INV;
 
 Architecture Behavior of INV is
 Begin
-    F <= not A after delay;
+    F <= transport (not A) after delay;
 End Behavior;    

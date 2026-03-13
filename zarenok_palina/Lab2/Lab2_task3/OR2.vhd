@@ -11,5 +11,5 @@ End OR2;
 
 Architecture Behavior of OR2 is
 Begin
-    F <= A or B after delay;
+    F <= transport (A or B) after delay;
 End Behavior;    
