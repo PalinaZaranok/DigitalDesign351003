@@ -11,5 +11,5 @@ End TRANSPORT_DELAY;
 
 Architecture Behavioral of TRANSPORT_DELAY is
 Begin
-    output <= input after delay;
+    output <= transport input after delay;
 End Behavioral;
